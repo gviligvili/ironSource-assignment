@@ -3,15 +3,15 @@
  * which of course connected to a db.
  */
 
-import {applicationsDBtable} from "./applications.DBtable";
+import * as applicationDBtable from './applications.json';
 
 /** Async is not needed, but just for real life scenario **/
 async function findAll() {
-    return Object.values(applicationsDBtable);
+    return Object.values(applicationDBtable);
 }
 
-const ApplicationsModel = {
+const ApplicationModel = {
     findAll,
 }
 
-export default ApplicationsModel;
+export default ApplicationModel;
