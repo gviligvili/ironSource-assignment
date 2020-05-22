@@ -1,0 +1,20 @@
+.search-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-bar > * {
+    margin-right: 10px;
+}
+
+.birthdate {
+    flex-basis: 20%;
+}
+
+.rating {
+    flex-basis: 30%;
+}
+
+.categories {
+    flex-basis: 50%;
+}
