@@ -1,23 +1,36 @@
 import React, {useState} from "react";
 import './ApplicationsPage.css';
 import Settings from "../config/settings";
-import SearchBar, {SearchBarProps} from "../components/searchBar/SearchBar";
+import SearchBar from "../components/searchBar/SearchBar";
+import useFetch from "use-http/dist";
+import ApplicationsTable from "../components/InstrumentsTable/ApplicationsTable";
 
-const APPLICATIONS_URL = `${Settings.get().BASE_URL}/instruments/`;
+const APPLICATIONS_URL = `${Settings.get().BASE_URL}/applications/`;
 
 /** Smart component incharge of managing the instruments view */
 export default function ApplicationsPage() {
-    let [query, setQuery] = useState("");
+    const { get, loading, error } = useFetch(APPLICATIONS_URL)
+    const [applications, setApplications] = useState([]);
 
-    const onSearchSubmit = ({rating, categories, birthDate}) => {
+    const onSearchSubmit = async({rating, categories, birthDate}) => {
         let queryString = `?birthdate=${birthDate}&rating=${rating}`
-        categories.forEach(c => queryString+=`&categories=${c}`);
-        setQuery(queryString);
+        categories.forEach(c => queryString+=`&categories[]=${c}`);
+        const res = await get(queryString);
+        setApplications(res);
     }
 
     return (
         <div className="applications-page">
             <SearchBar onSearchSubmit={onSearchSubmit}/>
+            <br />
+            <br />
+            {error ?
+                <div className="error">{error}</div>
+                :
+                (loading && !applications) ?
+                    <div> loading </div> :
+                    <ApplicationsTable applications={applications} />
+            }
         </div>
     );
 }

@@ -33,10 +33,12 @@ async function search(input: GetApplicationsInput) {
     const userAge = moment().diff(birthdate, "year");
     return allApplications.filter((app) => {
             const isAboveRating = app.rating >= rating;
-            const isAboveMinAge = app.min_age >= userAge;
+            const isAboveMinAge = userAge >= app.min_age;
             const isInCategory = categories.includes(app.category)
             return isAboveMinAge && isAboveRating && isInCategory
         })
+        // Shuffle the results and take 3, as the design says.
+        .sort(() => Math.random() - Math.random()).slice(0, 3)
 }
 
 const ApplicationModel = {
