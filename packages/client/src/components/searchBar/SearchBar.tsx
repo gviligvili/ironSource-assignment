@@ -18,7 +18,7 @@ export default function SearchBar({onSearchSubmit}: SearchBarProps) {
     const selectCategoriesRef = React.useRef<Multiselect>()
     const selectRatingRef = React.useRef<Multiselect>()
 
-    const [birthDate, setBirthdate] = useState(new Date());
+    const [birthDate, setBirthdate] = useState(new Date('01-01-1994'));
 
     const submitClicked = () => {
         let rating = selectRatingRef.current.getSelectedItems()[0];

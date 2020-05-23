@@ -25,7 +25,7 @@ export default function ApplicationsTable({applications}: ApplicationsTableProps
                 {
                     applications.map((t, index) =>
                         (<Tr key={t.id}>
-                            <Td>{index + 1}</Td>
+                            <Td><img className="icon-image" src={t.icon} /></Td>
                             <Td>{t.name}</Td>
                             <Td>{t.rating}</Td>
                             <Td>{t.category}</Td>
