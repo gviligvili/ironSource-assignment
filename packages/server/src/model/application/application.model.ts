@@ -20,13 +20,13 @@ export interface GetApplicationsInput {
  **/
 async function findAll(input: GetApplicationsInput) {
     if(!_.isEmpty(input)){
-        return search(input);
+        return _internalSearchLikeDB(input);
     }
     return Object.values(applicationDBtable);
 }
 
 
-async function search(input: GetApplicationsInput) {
+async function _internalSearchLikeDB(input: GetApplicationsInput) {
     const allApplications = Object.values(applicationDBtable);
     const { categories, birthdate, rating } = input;
 
