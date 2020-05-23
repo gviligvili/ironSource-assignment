@@ -2,7 +2,6 @@
  * In a real life scenerio, we would have an ORM managed model (or self managed model).
  * which of course connected to a db.
  */
-
 import {categoryDBtable} from "./category.DBtable";
 
 

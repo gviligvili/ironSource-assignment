@@ -6,35 +6,48 @@ import * as applicationDBtable from './applications.json';
 import moment from 'moment';
 import _ from 'lodash';
 
-export interface GetApplicationsInput {
-    categories: string[],
-    birthdate: string,
-    rating: number,
-}
-
 /**
- * all the filtering would occur as a query to the db,
- * and NOT hard coded js filtering.
- * An other point,
- * Async is not needed, but just for real life scenario
+ * ASSIGNMENT NOTE -
+ * This function isn't for us to implement,
+ * it's just to simulate a findAll against the db
+ * btw - Async is not needed, but just for real life scenario
  **/
-async function findAll(input: GetApplicationsInput) {
-    if(!_.isEmpty(input)){
-        return _internalSearchLikeDB(input);
+async function findAll(findQueryObj) {
+    if(!_.isEmpty(findQueryObj)){
+        return _internalSearchLikeDB(findQueryObj);
     }
     return Object.values(applicationDBtable);
 }
 
 
-async function _internalSearchLikeDB(input: GetApplicationsInput) {
+/**
+ * ASSIGNMENT NOTE - remember this is just a simulation of a query in the db.
+ * it shouldn't exist, it's just because we working with in-memory mock.
+ */
+async function _internalSearchLikeDB(findQueryObj) {
     const allApplications = Object.values(applicationDBtable);
-    const { categories, birthdate, rating } = input;
+    const { categories, birthdate, rating } = findQueryObj;
 
     const userAge = moment().diff(birthdate, "year");
     return allApplications.filter((app) => {
-            const isAboveRating = app.rating >= rating;
-            const isAboveMinAge = userAge >= app.min_age;
-            const isInCategory = categories.includes(app.category)
+            let isAboveRating = true;
+            let isInCategory = true;
+            let isAboveMinAge = true;
+
+            // Only calculate them if given in the query,
+            // otherwise don't consider them.
+            if (rating) {
+                isAboveRating = app.rating >= rating;
+            }
+
+            if (!_.isEmpty(categories)) {
+                isInCategory = categories.includes(app.category)
+            }
+
+            if (birthdate) {
+                isAboveMinAge = userAge >= app.min_age;
+            }
+
             return isAboveMinAge && isAboveRating && isInCategory
         })
         // Shuffle the results and take 3, as the design says.
