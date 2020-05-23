@@ -3,7 +3,7 @@ import './ApplicationsPage.css';
 import Settings from "../config/settings";
 import SearchBar from "../components/searchBar/SearchBar";
 import useFetch, {CachePolicies} from "use-http/dist";
-import ApplicationsTable from "../components/InstrumentsTable/ApplicationsTable";
+import ApplicationsTable from "../components/ApplicationsTable/ApplicationsTable";
 
 const APPLICATIONS_URL = `${Settings.get().BASE_URL}/applications/`;
 
