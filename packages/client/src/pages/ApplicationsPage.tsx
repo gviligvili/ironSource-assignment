@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import './ApplicationsPage.css';
 import Settings from "../config/settings";
-import SearchBar from "../components/searchBar/SearchBar";
 import useFetch, {CachePolicies} from "use-http/dist";
 import ApplicationsTable from "../components/ApplicationsTable/ApplicationsTable";
+import SearchBar from "../components/SearchBar/SearchBar";
 
 const APPLICATIONS_URL = `${Settings.get().BASE_URL}/applications/`;
 
@@ -12,6 +12,7 @@ export default function ApplicationsPage() {
     const { get, loading, error } = useFetch(APPLICATIONS_URL,{
         'cachePolicy': CachePolicies.NETWORK_ONLY
     })
+
     const [applications, setApplications] = useState([]);
 
     const onSearchSubmit = async({rating, categories, birthDate}) => {
