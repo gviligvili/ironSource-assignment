@@ -9,7 +9,7 @@ describe("SearchBar", () => {
         expect(searchElement).toBeInTheDocument();
     });
 
-    test('should emit when search is clicked', () => {
+    test('should emit data to search by when search is clicked', () => {
         const onClickMock = jest.fn();
         const { getByText } = render(<SearchBar onSearchSubmit={onClickMock}/>);
         const searchElement = getByText(/Get recommendations/i);

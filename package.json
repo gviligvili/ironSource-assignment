@@ -5,6 +5,7 @@
     "lerna": "^3.20.2"
   },
   "scripts": {
-    "start": "lerna exec npm run start"
+    "start": "lerna exec npm run start",
+    "test": "lerna exec npm run test"
   }
 }
