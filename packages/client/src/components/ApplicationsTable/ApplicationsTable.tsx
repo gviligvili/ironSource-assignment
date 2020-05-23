@@ -16,6 +16,10 @@ const columns = [
     {
         Header: 'Name',
         accessor: 'name',
+        Cell: ({cell, row}) => (<div><a onClick={(e) => {e.stopPropagation()}} href={row.original.url}>{cell.value}</a></div>)
+    },{
+        Header: 'Publisher',
+        accessor: 'publisher',
     },
     {
         Header: 'Rating',
